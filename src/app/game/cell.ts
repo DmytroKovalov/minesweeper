@@ -1,17 +1,17 @@
 
-enum Status
+export enum Status
 {
-  Close,
-  Open,
-  Marked
+  close,
+  open,
+  marked
 }
 
 export class Cell
 {
-  status: Status = Status.Close;
+  status: Status = Status.close;
   mine: boolean = false;
   count: number = 0;
-  constructor(public x: number, public y: number)
+  constructor(public y: number, public x: number)
   {
 
   }

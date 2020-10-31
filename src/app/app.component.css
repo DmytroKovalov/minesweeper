@@ -1,8 +1,9 @@
 table {
-  border: 1px solid gray;
+  border: 2px solid black;
   border-collapse: collapse;
 }
-table td {
+td {
+  border: 1px solid gray;
   width: 32px;
   height: 32px;
   display: inline-flex;

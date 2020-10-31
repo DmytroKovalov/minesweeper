@@ -1,8 +1,10 @@
-import { Cell } from "./cell";
+import { asNativeElements } from '@angular/core';
+import { Cell, Status } from "./cell";
 
 export class Board
 {
   cells: Cell[][];
+  mines: Set<Cell>;
 
   private directions: number[][] = [
     [-1, -1], [-1, 0], [-1, 1],
@@ -29,13 +31,13 @@ export class Board
     }
 
     //generate mines
-    let mines: Set<Cell> = new Set();
-    while (mines.size < this.minesCount)
+    this.mines = new Set();
+    while (this.mines.size < this.minesCount)
     {
       let x = Math.floor(Math.random() * this.width);
       let y = Math.floor(Math.random() * this.height);
       this.cells[y][x].mine = true;
-      mines.add(this.cells[y][x]);
+      this.mines.add(this.cells[y][x]);
     }
 
     //count number of neigbours
@@ -44,14 +46,7 @@ export class Board
       for (let j = 0; j < this.width; ++j)
       {
         let cell = this.cells[i][j];
-        if (cell.mine)
-        {
-          cell.count = -1;
-        }
-        else
-        {
-          cell.count = this.calcNeigbours(i, j);
-        }
+        cell.count = cell.mine ? -1 : this.calcNeigbours(i, j);
       }
     }
   }
@@ -59,10 +54,10 @@ export class Board
   calcNeigbours(i: number, j: number): number
   {
     let count: number = 0;
-    this.directions.forEach(row =>
+    this.directions.forEach(dir =>
     {
-      let y = i + row[0];
-      let x = j + row[1];
+      let y = i + dir[0];
+      let x = j + dir[1];
       if (this.cells[y] && this.cells[y][x] && this.cells[y][x].mine)
       {
         ++count;
@@ -72,10 +67,44 @@ export class Board
     return count;
   }
 
-  newGame(width: number, height: number): void
+  newGame(width: number, height: number, minesCount: number): void
   {
     this.width = width;
     this.height = height;
+    this.minesCount = minesCount;
     this.initBoard();
+  }
+
+  getCountOfEmptyCells(): number
+  {
+    return this.width*this.height - this.minesCount;
+  }
+
+  openAllMines(): void
+  {
+    this.mines.forEach(cell => 
+    {
+      cell.status = Status.open;
+    });
+  }
+
+  openAllEmptyNeighbours(cell: Cell): number
+  {
+    let count: number = 0;
+    this.directions.forEach(dir =>
+    {
+      let y = cell.y + dir[0];
+      let x = cell.x + dir[1];
+      if (this.cells[y] && this.cells[y][x] && this.cells[y][x].status != Status.open)
+      {
+        this.cells[y][x].status = Status.open;
+        ++count;
+        if (this.cells[y][x].count == 0 )
+        {
+          count += this.openAllEmptyNeighbours(this.cells[y][x]);
+        }
+      }
+    });
+    return count;
   }
 }
