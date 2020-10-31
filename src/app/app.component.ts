@@ -58,4 +58,16 @@ export class AppComponent
       }
     }
   }
+
+  mark(cell: Cell): void
+  {
+    if (cell.status == Status.marked)
+    {
+      cell.status = Status.close;
+    }
+    else if (cell.status == Status.close)
+    {
+      cell.status = Status.marked;
+    }
+  }
 }
