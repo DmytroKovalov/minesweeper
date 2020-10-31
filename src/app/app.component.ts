@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Board } from './game/board';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'minesweeper';
+  board: Board = new Board(10, 10, 15);
 }
