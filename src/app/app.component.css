@@ -23,3 +23,39 @@ td {
 .progress {
   background-color: white;
 }
+
+.zero{
+  color: #36c5f048;
+}
+
+.one{
+  color: #2d77cc;
+}
+
+.two{
+  color:#33ad27;
+}
+
+.three{
+  color: #f5c833;
+}
+
+.four{
+  color: #f15730;
+}
+
+.five{
+  color: #ee36f4;
+}
+
+.six{
+  color: #b836f4;
+}
+
+.seven{
+  color: #340a79;
+}
+
+.eight{
+  color: #020000;
+}

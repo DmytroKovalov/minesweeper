@@ -46,7 +46,7 @@ export class Board
       for (let j = 0; j < this.width; ++j)
       {
         let cell = this.cells[i][j];
-        cell.count = cell.mine ? -1 : this.calcNeigbours(i, j);
+        cell.setCount(cell.mine ? 0 : this.calcNeigbours(i, j));
       }
     }
   }
