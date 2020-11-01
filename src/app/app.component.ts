@@ -15,6 +15,7 @@ export class AppComponent
   gridHeight: number = 10;
   mines: number = 15;
   gameResult: 'Win' | 'Lose' | 'in progress' = 'in progress';
+  mineStyle: 'win' | 'lose' | 'progress' = 'progress'; 
 
   private gameOver: boolean = false;
   private emptyCells: number; 
@@ -28,6 +29,7 @@ export class AppComponent
   newGame(): void
   {
     this.gameResult = 'in progress';
+    this.mineStyle = 'progress';
     this.gameOver = false;
     this.board.newGame(this.gridWidth, this.gridHeight, this.mines);
     this.emptyCells = this.board.getCountOfEmptyCells();
@@ -41,6 +43,7 @@ export class AppComponent
     {
       this.gameOver = true;
       this.gameResult = 'Lose';
+      this.mineStyle = 'lose'
       this.board.openAllMines();
     }
     else
@@ -55,6 +58,8 @@ export class AppComponent
       {
         this.gameOver = true;
         this.gameResult = 'Win';
+        this.mineStyle = 'win'
+        this.board.openAllMines();
       }
     }
   }

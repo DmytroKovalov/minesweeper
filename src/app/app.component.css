@@ -2,6 +2,7 @@ table {
   border: 2px solid black;
   border-collapse: collapse;
 }
+
 td {
   border: 1px solid gray;
   width: 32px;
@@ -9,4 +10,16 @@ td {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.win {
+  background-color: #4CAF50;
+} 
+
+.lose {
+  background-color: #f44336;
+} 
+
+.progress {
+  background-color: white;
 }
